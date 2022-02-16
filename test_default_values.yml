@@ -1,0 +1,27 @@
+---
+- name: Test default vars
+  hosts: localhost
+  connection: local
+  vars:
+    nodes_cluster: []
+    server_data:
+      - nodename: Node01
+        servername: Win01
+        cluster: Cluster01
+      - nodename: Node02
+        servername: Win03
+        cluster: Win02
+  tasks:
+    - name: Filter nodes and servers per cluster
+      set_fact:
+        nodes_cluster: "{{ nodes_cluster + [ item ] }}"
+      loop: "{{ server_data }}"
+      when: item.cluster == cluster_name
+
+    - name: Find the index of all firewalls using the type key
+      set_fact:
+        index_app: "{{ lookup('ansible.utils.index_of', nodes_cluster, 'eq', '{{ cluster_name }}', 'cluster', wantlist=True) }}"
+
+#        smb://01-039521.rimac.com.pe/Carmen/DOCUMENTOS_SOPORTEAE/_OTROS/RubenGarcia/EAR/Rev.G-21240/Windows/CONSIS_DWIN02.ear",
+#        \\rssbfs01.rimac.com.pe\"Grupos de Trabajo"\DivTyTI\_SGS\01_TEST_PROY\Pase_Automatico_TEST_PROY_181121\Windows\
+#        \\rssbfs01.rimac.com.pe\"Grupos de Trabajo"\DivTyTI\_SGS\01_TEST_PROY\Pase_AE_TEST_PROY_20211004_v1_ACSELE\BD\BD\
