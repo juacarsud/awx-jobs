@@ -1,0 +1,6 @@
+---
+- name: Register on Elastic for monitoring
+  hosts: localhost
+  connection: local
+  roles:
+    - { role: register_elastic }

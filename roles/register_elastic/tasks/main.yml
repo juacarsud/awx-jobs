@@ -1,0 +1,19 @@
+---
+- name: Create elastic Request
+  template:
+    src: ./template/request.j2
+    dest: /tmp/request.json
+- name: Send request to elastic
+  uri:
+    url: https://10.73.13.226:9200/iacprov/_doc
+    method: POST
+    body: "{{ lookup('file','/tmp/request.json') }}"
+    body_format: json
+    user: "{{ elastic_user }}"
+    password: "{{ elastic_password }}"
+    force_basic_auth: yes
+    headers:
+      Content-Type: "application/json"
+    return_content: yes
+    validate_certs: no
+    status_code: 201
