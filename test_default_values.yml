@@ -18,9 +18,9 @@
       loop: "{{ server_data }}"
       when: item.cluster == cluster_name
 
-    - name: Find the index of all firewalls using the type key
-      set_fact:
-        index_app: "{{ lookup('ansible.utils.index_of', nodes_cluster, 'eq', '{{ cluster_name }}', 'cluster', wantlist=True) }}"
+      #    - name: Find the index of all firewalls using the type key
+      #set_fact:
+      #  index_app: "{{ lookup('ansible.utils.index_of', nodes_cluster, 'eq', '{{ cluster_name }}', 'cluster', wantlist=True) }}"
 
 #        smb://01-039521.rimac.com.pe/Carmen/DOCUMENTOS_SOPORTEAE/_OTROS/RubenGarcia/EAR/Rev.G-21240/Windows/CONSIS_DWIN02.ear",
 #        \\rssbfs01.rimac.com.pe\"Grupos de Trabajo"\DivTyTI\_SGS\01_TEST_PROY\Pase_Automatico_TEST_PROY_181121\Windows\
